@@ -5,7 +5,7 @@ public class DeleteNode {
         var tree = initTree();
         printTree(tree);
 
-        tree.delete(70);
+        tree.delete(25);
         printTree(tree);
     }
 
