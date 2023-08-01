@@ -47,28 +47,8 @@ class Node {
         this.value = value;
     }
 
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
-
     public int getValue() {
         return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     @Override
@@ -109,25 +89,13 @@ class Node {
         var deletedNode = deletedNodeAddress.getKey();
         var deletedNodeParent = deletedNodeAddress.getValue();
         if (deletedNode.left == null && deletedNode.right == null) {
-            if (deletedNode.value < deletedNodeParent.value) {
-                deletedNodeParent.left = null;
-            } else {
-                deletedNodeParent.right = null;
-            }
+            deleteNodeWithSingleChild(deletedNode, deletedNodeParent, null);
         }
         if (deletedNode.left != null && deletedNode.right == null) {
-            if (deletedNode.value < deletedNodeParent.value) {
-                deletedNodeParent.left = deletedNode.left;
-            } else {
-                deletedNodeParent.right = deletedNode.left;
-            }
+            deleteNodeWithSingleChild(deletedNode, deletedNodeParent, deletedNode.left);
         }
         if (deletedNode.right != null && deletedNode.left == null) {
-            if (deletedNode.value < deletedNodeParent.value) {
-                deletedNodeParent.left = deletedNode.right;
-            } else {
-                deletedNodeParent.right = deletedNode.right;
-            }
+            deleteNodeWithSingleChild(deletedNode, deletedNodeParent, deletedNode.right);
         }
         if (deletedNode.left != null && deletedNode.right != null) {
             var minNodeAddressInRight = deletedNode.findMinNodeInRightNode();
@@ -135,6 +103,14 @@ class Node {
             var minNodeParent = minNodeAddressInRight.getValue();
             minNodeParent.delete(minNode.value);
             deletedNode.value = minNode.value;
+        }
+    }
+
+    private static void deleteNodeWithSingleChild(Node deletedNode, Node deletedNodeParent, Node replacement) {
+        if (deletedNode.value < deletedNodeParent.value) {
+            deletedNodeParent.left = replacement;
+        } else {
+            deletedNodeParent.right = replacement;
         }
     }
 
