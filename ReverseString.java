@@ -38,8 +38,25 @@ public class ReverseString {
         return result.get();
     }
 
+    private static String reverseStringRecursion(String str) {
+        var chars = str.toCharArray();
+        return String.valueOf(reverseStringRec(chars, 0));
+    }
+
+    private static char[] reverseStringRec(char[] chars, int pos) {
+        if (pos > chars.length / 2) {
+            return chars;
+        }
+        var elemLeft = chars[pos];
+        var elemRight = chars[chars.length - 1 - pos];
+        chars[pos] = elemRight;
+        chars[chars.length - 1 - pos] = elemLeft;
+
+        return reverseStringRec(chars, pos + 1);
+    }
+
     public static void main(String[] args) {
-        var str = IntStream.range(0, 100000)
+        var str = IntStream.range(0, 100)
                 .mapToObj(Character::toString)
                 .collect(Collectors.joining());
         var time = System.currentTimeMillis();
@@ -51,5 +68,8 @@ public class ReverseString {
         time = System.currentTimeMillis();
         System.out.println(reverseStringStream(str));
         System.out.printf("reverseStringStream: %d%n", System.currentTimeMillis() - time);
+        time = System.currentTimeMillis();
+        System.out.println(reverseStringRecursion(str));
+        System.out.printf("reverseStringRecursion: %d%n", System.currentTimeMillis() - time);
     }
 }
