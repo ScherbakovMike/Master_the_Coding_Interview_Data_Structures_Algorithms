@@ -15,19 +15,13 @@ fun fibonacciIterative(n: Int): List<Int> {
     return result
 }
 
-fun fibonacciRecursive(n: Int, prev1: Int = 0, prev2: Int = 1) {
-    if (n == 2) {
-        return
-    }
-    if (prev1 == 0 && prev2 == 1) {
-        print("${prev1}, ${prev2}")
-    }
-    val cur = prev1 + prev2
-    print(", ${cur}")
-    fibonacciRecursive(n - 1, prev2, cur)
+fun fibonacciRecursive(n: Int): Int {
+    if (n <= 1) return n
+    return fibonacciRecursive(n - 2) + fibonacciRecursive(n - 1)
+
 }
 
 fun main() {
-    println(fibonacciIterative(10))
-    fibonacciRecursive(10)
+    println(fibonacciIterative(400))
+    println(fibonacciRecursive(40))
 }
