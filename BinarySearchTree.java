@@ -125,19 +125,22 @@ public class BinarySearchTree {
     }
 
     public static void main(String[] args) {
-        var tree = initTree();
-        printTree(tree);
+        //var tree = initTree();
+        //printTree(tree);
 
         var smallTree = new Node(50);
         smallTree.insert(30);
         smallTree.insert(70);
         smallTree.insert(10);
-        smallTree.insert(40);
-        smallTree.insert(50);
-        smallTree.insert(80);
-        bfsIterative(smallTree);
+        printTree(smallTree);
+//        smallTree.insert(40);
+//        smallTree.insert(50);
+//        smallTree.insert(80);
+        //bfsIterative(smallTree);
 
-        bfsRecursive(new LinkedList<>(List.of(smallTree)));
+        //bfsRecursive(new LinkedList<>(List.of(smallTree)));
+
+        dfsPostOrder(smallTree);
     }
 
     private static Node initTree() {
@@ -190,5 +193,35 @@ public class BinarySearchTree {
             queue.add(curNode.right);
         }
         bfsRecursive(queue);
+    }
+
+    private static void dfsPreOrder(Node node) {
+        System.out.println(node.value);
+        if(node.left!=null) {
+            dfsPreOrder(node.left);
+        }
+        if(node.right!=null) {
+            dfsPreOrder(node.right);
+        }
+    }
+
+    private static void dfsInOrder(Node node) {
+        if(node.left!=null) {
+            dfsInOrder(node.left);
+        }
+        System.out.println(node.value);
+        if(node.right!=null) {
+            dfsInOrder(node.right);
+        }
+    }
+
+    private static void dfsPostOrder(Node node) {
+        if(node.left!=null) {
+            dfsPostOrder(node.left);
+        }
+        if(node.right!=null) {
+            dfsPostOrder(node.right);
+        }
+        System.out.println(node.value);
     }
 }
